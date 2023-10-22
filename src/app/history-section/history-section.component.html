@@ -1,0 +1,29 @@
+<div class="card-container">
+  <h3 style="color: blue;">Past Searches</h3>
+  <button
+    style="background-color: #cc4c2b; border-radius: 3px; border-color: #e45835; margin-right: 45%; height: 30px;"
+    (click)="clearAllHistory()">Clear All History</button>
+</div>
+
+<div *ngFor="let user of historyItems;">
+  <mat-card class="card-class">
+    <mat-card-content>
+      <div class="card-container">
+        <p *ngIf="user.searchStatus == 'found'" class="found">
+          <a target="_blank" href="{{user.profileUrl}}">{{user.username}}</a>
+        </p>
+        <p *ngIf="user.searchStatus == 'notFound'" class="notFound">
+          <a>{{user.username}}</a>
+        </p>
+        <p *ngIf="user.searchStatus == 'failed'" class="failed">
+          <a>{{user.username}}</a>
+        </p>
+        <p>
+          <button
+            style="background-color: #cc4c2b; border-radius: 3px; border-color: #cc4c2b; margin-left: 4px; height: 30px;"
+            (click)="deletePastSearch(user.historyId)">Delete</button>
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

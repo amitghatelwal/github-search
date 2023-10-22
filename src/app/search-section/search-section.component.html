@@ -1,0 +1,32 @@
+<div class="card-container">
+  <input type="text" placeholder="Search by username" style="border-radius: 3px; height: 25px;" #filter
+    (keydown.enter)="findUser(filter.value)">
+  <button style="background-color: #468ed6; border-radius: 3px; border-color: #468ed6; margin-left: 4px; height: 30px;"
+    type="button" (click)="findUser(filter.value)">Search</button>
+
+  <div class="spinner-size">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>
+
+  <div *ngIf="userData">
+    <mat-card *ngIf="userData.searchStatus == 'found'" class="profile-card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>{{ userData?.name || userData?.login }}</mat-card-title>
+          <mat-card-subtitle>{{userData.followers || 0}} followers | {{userData.following || 0}}
+            following</mat-card-subtitle>
+          <img mat-card-sm-image src="{{userData?.avatar_url}}">
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        Public repos - {{userData.public_repos || 0}}
+      </mat-card-content>
+      <mat-card-actions align="start">
+        <a target="_blank" href="{{userData?.html_url}}">Visit Public Profile</a>
+      </mat-card-actions>
+    </mat-card>
+    <div *ngIf="userData.searchStatus != 'found'" class="profile-card">
+      <h3>No data found with username!</h3>
+    </div>
+  </div>
+</div>
